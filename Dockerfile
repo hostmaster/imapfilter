@@ -50,11 +50,8 @@ RUN mkdir -p "${BINDIR}" "${SHAREDIR}"
 # Binary
 COPY --from=build /src/src/imapfilter ${BINDIR}/imapfilter
 
-# Lua modules (from the Makefile's LUA variable)
-COPY --from=build /src/src/common.lua /src/src/set.lua /src/src/regex.lua \
-                  /src/src/account.lua /src/src/mailbox.lua /src/src/message.lua \
-                  /src/src/options.lua /src/src/auxiliary.lua \
-                  ${SHAREDIR}/
+# Lua modules
+COPY --from=build /src/src/*.lua ${SHAREDIR}/
 
 RUN chmod 0755 ${BINDIR}/imapfilter \
     && chmod 0644 ${SHAREDIR}/*
